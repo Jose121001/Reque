@@ -30,12 +30,12 @@ function App() {
           <div className="contenido_panel">
             {/* Contenido del panel, puede ser cualquier cosa */}
             <button className="boton_Category">
-            <RestaurantIcon style={{ marginRight: '8px' }} /> {/* Espacio entre el ícono y el texto */}
-              </button>
+              <RestaurantIcon style={{ marginRight: '8px' }} /> {/* Espacio entre el ícono y el texto */}
+            </button>
 
-              <button className="boton_Category2">
+            <button className="boton_Category2">
               <LocalBarIcon style={{ marginRight: '8px' }} /> {/* Espacio entre el ícono y el texto */}
-              </button>
+            </button>
  
 
               <button className="boton_Category3">

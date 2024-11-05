@@ -127,7 +127,7 @@ body {
 
 
 /* Boton ventas */
-.boton_Ventas {
+.boton_Category {
   background-color: #76a9f1; /* Color de fondo */
   color: white; /* Color del texto */
   padding: 12px 20px; /* Espaciado interno */
@@ -137,14 +137,46 @@ body {
   cursor: pointer; /* Cambia el cursor al pasar el mouse */
   transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  
 }
 
-.boton_Ventas:hover {
+
+
+.boton_Category2{
+  background-color: #76a9f1; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 12px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  margin-left:200px;
+
+}
+
+
+.boton_Category3{
+  background-color: #76a9f1; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 12px 20px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  margin-left:200px;
+
+}
+
+.boton_Category:hover {
   background-color: black; /* Color al pasar el mouse */
   transform: translateY(-2px); /* Efecto de elevación */
 }
 
-.boton_Ventas:active {
+.boton_Category:active {
   transform: translateY(0); /* Regresa a la posición original al hacer clic */
 }
 
@@ -217,10 +249,10 @@ body {
 .panel_scroll {
   overflow-x: auto; /* Habilitar desplazamiento horizontal */
   white-space: nowrap; /* Evitar el salto de línea en los elementos */
-  background-color: #755b5b; /* Fondo del panel */
+  background-color: #ffffff; /* Fondo del panel */
   padding: 5px; /* Espaciado interno reducido */
-  border-top: 1px solid #afc1a6; /* Línea separadora */
-  max-width: 40%; /* Ancho máximo del panel */
+  border-top: 1px solid #fff; /* Línea separadora */
+  max-width: 30%; /* Ancho máximo del panel */
   margin: 0 auto; /* Centrar el panel horizontalmente */
 }
 
