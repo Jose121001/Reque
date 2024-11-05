@@ -213,24 +213,32 @@ body {
 }
 
 
-
-/*Scroll*/
+/* Scroll */
 .panel_scroll {
   overflow-x: auto; /* Habilitar desplazamiento horizontal */
   white-space: nowrap; /* Evitar el salto de línea en los elementos */
   background-color: #755b5b; /* Fondo del panel */
-  padding: 10px; /* Espaciado interno */
+  padding: 5px; /* Espaciado interno reducido */
   border-top: 1px solid #afc1a6; /* Línea separadora */
+  max-width: 40%; /* Ancho máximo del panel */
+  margin: 0 auto; /* Centrar el panel horizontalmente */
 }
 
 .contenido_panel {
   display: inline-block; /* Mostrar los elementos en línea */
-  padding: 10px; /* Espaciado interno */
+  padding: 5px; /* Espaciado interno reducido */
 }
- 
+
+/* Estilo para los botones */
+.boton_Category, .boton_Category2, .boton_Category3, .boton_Category4 {
+  padding: 5px 10px; /* Espaciado interno reducido en los botones */
+  margin-right: 10px; /* Espacio entre los botones */
+  font-size: 14px; /* Tamaño de fuente reducido */
+}
+
 /* Opcional: Estilo para el contenido */
 .contenido_panel p {
   display: inline-block; /* Mantener los párrafos en una línea */
-  margin-right: 20px; /* Espaciado entre los elementos */
-  font-size: 16px; /* Tamaño de fuente */
-} 
+  margin-right: 10px; /* Espaciado entre los elementos */
+  font-size: 14px; /* Tamaño de fuente reducido */
+}
