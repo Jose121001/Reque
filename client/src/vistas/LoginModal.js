@@ -2,34 +2,25 @@
 import React, { useState } from "react";
 import "./LoginModal.css";
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+
     if (username === "admin1" && password === "admin1234") {
       localStorage.setItem("currentUser", "admin");
-
-      alert("Inicio de  exitoso como Admin");
+      onLoginSuccess(); // Llama a onLoginSuccess para mostrar el panel de inventario
     } else if (username === "waiter1" && password === "waiter1234") {
       localStorage.setItem("currentUser", "mesero");
-
-      alert("Inicio de sesión exitoso como Mesero");
+      onLoginSuccess();
     } else if (username === "cook1" && password === "cook1234") {
       localStorage.setItem("currentUser", "cocinero");
-
-      alert("Inicio de sesión exitoso como Cocinero");
+      onLoginSuccess();
     } else {
-      alert("Credenciales incorrectas");
+      setErrorMessage("Credenciales incorrectas, por favor intenta de nuevo.");
     }
   };
 
@@ -44,25 +35,23 @@ const LoginModal = ({ onClose }) => {
             id="username"
             name="username"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
-
           <label htmlFor="password">Contraseña</label>
           <input
             type="password"
             id="password"
             name="password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
-
           <button type="submit" className="login-button">Iniciar Sesión</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </form>
         <div className="login-actions">
           <button onClick={onClose} className="back-button">Regresar</button>
-          <button className="register-button">Registrar</button>
         </div>
       </div>
     </div>

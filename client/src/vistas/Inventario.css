@@ -1,0 +1,47 @@
+/* Inventario.css */
+
+.inventory-container {
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+  }
+  
+  .inventory-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .item {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .item-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .inventory-button {
+    background-color: #A4AC86;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .inventory-button:hover {
+    background-color: #7f8c4c;
+  }
