@@ -1,42 +1,61 @@
-/* Panel_Administracion.css */
-
-/* Fondo del inventario */
-.inventory-container {
-  background-color: #c2c5aa; /* Mismo fondo del cuerpo en App.css */
-  color: white; /* Color de texto en el cuerpo de App.css */
+/* Contenedor del menú lateral */
+.sidebar-menu {
+  width: 250px;
+  height: 100vh;
+  background-color: #8a8d75;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  position: relative;
 }
 
-/* Títulos */
+/* Footer del menú lateral */
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  padding-top: 20px;
+  border-top: 1px solid #c2c5aa;
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px; /* Ajusta este valor según la distancia deseada del borde inferior */
+}
+
 .inventory-title {
   font-family: 'Cascadia Code', monospace;
-  color: #C2C5AA; /* Para empatar con el título en App.css */
+  color: #C2C5AA;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* Contenedor de los botones */
 .button-container {
   display: flex;
-  flex-direction: column; /* Organiza los botones en columna */
-  gap: 10px; /* Espacio entre los botones */
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  align-items: center;
 }
 
-/* Botones del inventario */
 .inventory-button {
-  background-color: #A4AC86; /* Mismo color de botón en App.css */
+  background-color: #a4ac86;
   color: white;
-  padding: 12px 20px;
+  padding: 20px 40px;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  text-align: center;
 }
 
 .inventory-button:hover {
-  background-color: black; /* Coincide con el color hover en App.css */
+  background-color: black;
   transform: translateY(-2px);
 }
 
@@ -44,10 +63,19 @@
   transform: translateY(0);
 }
 
-/* Paneles de contenido */
-.inventory-panel {
-  background-color: #A68A64; /* Coincide con el color del panel scroll */
-  padding: 15px;
+.back-button {
+  background-color: #d9534f;
+  color: white;
+  padding: 20px 40px;
+  border: none;
   border-radius: 5px;
-  margin-bottom: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 90%;
+  text-align: center;
+}
+
+.back-button:hover {
+  background-color: #c9302c;
 }

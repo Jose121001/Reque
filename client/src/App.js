@@ -88,7 +88,7 @@ function App() {
                   </h1>
                   <button className="boton_clientes" onClick={handleLoginClick}>
                     <LoginIcon style={{ marginRight: "8px" }} />
-                    Clientes
+                    Administracion
                   </button>
                   <button
                     className="boton_Proveedores"
