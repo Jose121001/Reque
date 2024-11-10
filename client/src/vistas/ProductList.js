@@ -4,10 +4,10 @@ import { Button, Typography, Dialog, DialogActions, DialogContent, DialogTitle, 
 function ProductList({ category }) {
   const products = {
     entradas: ["Ensalada Cesar", "Sopa de Tomate", "Aros de Cebolla", "Tortillas", "Palitos de queso", "Papas fritas"],
-    carnes: ["Filete de Res", "Pechuga de Pollo", "Costillas"],
-    pizzas: ["Pizza Margherita", "Pizza Pepperoni", "Pizza Vegetariana"],
-    bebidas: ["Coca Cola", "Agua Mineral", "Cerveza"],
-    postres: ["Tarta de Manzana", "Helado", "Brownie"],
+    carnes: ["Filete de res", "Pechuga de pollo", "Costillas_bbq", "Tomahack","T Bone Steak"],
+    pizzas: ["Pizza de camarones", "Pizza suprema", "Pizza de piña", "Pizza 10quesos"],
+    bebidas: ["coca cola", "jugo de sandia", "agua enbotellada", "margarita"],
+    postres: ["brownie", "helado", "Pie de manzana"],
   };
 
   const [open, setOpen] = useState(false);

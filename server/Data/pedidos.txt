@@ -1,0 +1,24 @@
+{
+  "name": "Sopa de Tomate",
+  "quantity": 1,
+  "unitPrice": 10,
+  "total": 10
+}
+{
+  "name": "Sopa de Tomate",
+  "quantity": 3,
+  "unitPrice": 10,
+  "total": 30
+}
+{
+  "name": "Palitos de queso",
+  "quantity": 4,
+  "unitPrice": 10,
+  "total": 40
+}
+{
+  "name": "Tortillas",
+  "quantity": 4,
+  "unitPrice": 10,
+  "total": 40
+}
