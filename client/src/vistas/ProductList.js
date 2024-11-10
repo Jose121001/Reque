@@ -13,7 +13,6 @@ function ProductList({ category }) {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState([]);  // Estado para el carrito
   const unitPrice = 10;  // Precio unitario del producto
 
   const handleOpen = (product) => {
@@ -30,8 +29,8 @@ function ProductList({ category }) {
     setQuantity(Math.max(1, Number(e.target.value)));  // Asegurarse de que la cantidad sea al menos 1
   };
 
-  // Función para agregar el producto al carrito localmente
-  const addProductToCart = () => {
+  // Función para enviar los datos del producto al servidor Express
+  const saveProductToServer = async () => {
     if (!selectedProduct || quantity < 1) {
       console.error("Producto o cantidad no válida");
       return;  // No agregar si no es válido
@@ -44,9 +43,27 @@ function ProductList({ category }) {
       total: quantity * unitPrice,
     };
 
-    setCart([...cart, newProduct]);  // Agregar el producto al carrito
+    // Enviar los datos al servidor Express
+    try {
+      const response = await fetch('http://localhost:3001/guardar-producto', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newProduct),
+      });
 
-    handleClose();  // Cerrar el modal
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Producto guardado con éxito:', data);
+        handleClose();  // Cerrar el modal
+      } else {
+        console.error('Error al guardar el producto:', data.message);
+      }
+    } catch (error) {
+      console.error('Error al enviar la solicitud:', error);
+    }
   };
 
   return (
@@ -110,7 +127,7 @@ function ProductList({ category }) {
             Regresar
           </Button>
           <Button
-            onClick={addProductToCart}  // Ahora se agrega al carrito localmente
+            onClick={saveProductToServer}  // Llama a la función para guardar en el servidor
             color="secondary"
             style={{ color: "#FFFFFF" }}
           >
@@ -118,21 +135,6 @@ function ProductList({ category }) {
           </Button>
         </DialogActions>
       </Dialog>
-
-      {/* Mostrar el carrito (opcional) */}
-      <div>
-        <h3>Carrito:</h3>
-        <ul>
-          {cart.map((product, index) => (
-            <li key={index}>
-              {product.name} - {product.quantity} x ${product.unitPrice} = ${product.total}
-            </li>
-          ))}
-        </ul>
-        <Typography variant="h6">
-          Total del carrito: ${cart.reduce((sum, product) => sum + product.total, 0).toFixed(2)}
-        </Typography>
-      </div>
     </div>
   );
 }
