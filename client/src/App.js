@@ -1,4 +1,5 @@
 // App.js
+
 import React, { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LoginIcon from "@mui/icons-material/Login";
@@ -12,11 +13,15 @@ import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import ProductList from "./vistas/ProductList";
 import LoginModal from "./vistas/LoginModal";
+import InventoryManagement from "./vistas/Panel_Administracion";
+import Inventory from "./vistas/Inventario";
 import "./App.css";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null); // Estado para la categoría seleccionada
+  const [showInventoryManagement, setShowInventoryManagement] = useState(false);
+  const [showInventory, setShowInventory] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -26,67 +31,118 @@ function App() {
     setShowLogin(false);
   };
 
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+    setShowInventoryManagement(true);
+  };
+
+  const handleBackToMenu = () => {
+    setShowInventoryManagement(false);
+  };
+
+  const handleGoToInventory = () => {
+    setShowInventoryManagement(false);
+    setShowInventory(true);
+  };
+
+  const handleBackToManageInventory = () => {
+    setShowInventory(false);
+    setShowInventoryManagement(true);
+  };
+
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category); // Cambia la categoría seleccionada
+    setSelectedCategory(category);
   };
 
   return (
     <ThemeProvider theme={createTheme()}>
       <div className="App">
-        <header>
-          <div className="menu_side_div">
-            <nav className="Menu_sidebar">
-              <h1 className="Titulo">
-              <OutdoorGrillIcon style={{ marginRight: "8px", fontSize: "1.5em", verticalAlign: "middle" }} />
-                The Grill Steak
-              </h1>
-              <button className="boton_clientes" onClick={handleLoginClick}>
-                <LoginIcon style={{ marginRight: "8px" }} />
-              
-              </button>
-              <button className="boton_Proveedores">
-                <ShoppingCartIcon style={{ marginRight: "8px" }} />
-               
-              </button>
-            </nav>
-          </div>
-        </header>
-        
-        <div className="panel_scroll">
-          <div className="contenido_panel">
-            <button className="boton_Category" onClick={() => handleCategoryClick("entradas")}>
-              <LocalDiningIcon style={{ marginRight: "8px" }} />
-              Entradas
-            </button>
+        {showInventoryManagement ? (
+          <InventoryManagement
+            onBack={handleBackToMenu}
+            handleGoToInventory={handleGoToInventory}
+          />
+        ) : (
+          <>
+            <header>
+              <div className="menu_side_div">
+                <nav className="Menu_sidebar">
+                  <h1 className="Titulo">
+                    <OutdoorGrillIcon
+                      style={{
+                        marginRight: "8px",
+                        fontSize: "1.5em",
+                        verticalAlign: "middle",
+                      }}
+                    />
+                    The Grill Steak
+                  </h1>
+                  <button className="boton_clientes" onClick={handleLoginClick}>
+                    <LoginIcon style={{ marginRight: "8px" }} />
+                    Clientes
+                  </button>
+                  <button className="boton_Proveedores">
+                    <ShoppingCartIcon style={{ marginRight: "8px" }} />
+                    Proveedores
+                  </button>
+                </nav>
+              </div>
+            </header>
 
-            <button className="boton_Category" onClick={() => handleCategoryClick("carnes")}>
-              <FastfoodIcon style={{ marginRight: "8px" }} />
-              Carnes
-            </button>
+            <div className="panel_scroll">
+              <div className="contenido_panel">
+                <button
+                  className="boton_Category"
+                  onClick={() => handleCategoryClick("entradas")}
+                >
+                  <LocalDiningIcon style={{ marginRight: "8px" }} />
+                  Entradas
+                </button>
 
-            <button className="boton_Category" onClick={() => handleCategoryClick("pizzas")}>
-              <LocalPizzaIcon style={{ marginRight: "8px" }} />
-              Pizzas
-            </button>
+                <button
+                  className="boton_Category"
+                  onClick={() => handleCategoryClick("carnes")}
+                >
+                  <FastfoodIcon style={{ marginRight: "8px" }} />
+                  Carnes
+                </button>
 
-            <button className="boton_Category" onClick={() => handleCategoryClick("bebidas")}>
-              <LocalBarIcon style={{ marginRight: "8px" }} />
-              Bebidas
-            </button>
+                <button
+                  className="boton_Category"
+                  onClick={() => handleCategoryClick("pizzas")}
+                >
+                  <LocalPizzaIcon style={{ marginRight: "8px" }} />
+                  Pizzas
+                </button>
 
-            <button className="boton_Category" onClick={() => handleCategoryClick("postres")}>
-              <CakeIcon style={{ marginRight: "8px" }} />
-              Postres
-            </button>
-          </div>
-        </div>
+                <button
+                  className="boton_Category"
+                  onClick={() => handleCategoryClick("bebidas")}
+                >
+                  <LocalBarIcon style={{ marginRight: "8px" }} />
+                  Bebidas
+                </button>
 
-        {/* Panel de productos */}
-        <div className="productos_panel">
-          {selectedCategory && <ProductList category={selectedCategory} />} {/* Aquí se renderizan los productos */}
-        </div>
+                <button
+                  className="boton_Category"
+                  onClick={() => handleCategoryClick("postres")}
+                >
+                  <CakeIcon style={{ marginRight: "8px" }} />
+                  Postres
+                </button>
+              </div>
+            </div>
 
-        {showLogin && <LoginModal onClose={handleCloseLogin} />}
+            <div className="productos_panel">
+              {selectedCategory && <ProductList category={selectedCategory} />}
+            </div>
+
+            {showLogin && (
+              <LoginModal onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />
+            )}
+            {showInventory && <Inventory BackToManageInventory={handleBackToManageInventory} />}
+          </>
+        )}
       </div>
     </ThemeProvider>
   );

@@ -1,0 +1,53 @@
+/* Panel_Administracion.css */
+
+/* Fondo del inventario */
+.inventory-container {
+  background-color: #c2c5aa; /* Mismo fondo del cuerpo en App.css */
+  color: white; /* Color de texto en el cuerpo de App.css */
+  padding: 20px;
+}
+
+/* Títulos */
+.inventory-title {
+  font-family: 'Cascadia Code', monospace;
+  color: #C2C5AA; /* Para empatar con el título en App.css */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Contenedor de los botones */
+.button-container {
+  display: flex;
+  flex-direction: column; /* Organiza los botones en columna */
+  gap: 10px; /* Espacio entre los botones */
+}
+
+/* Botones del inventario */
+.inventory-button {
+  background-color: #A4AC86; /* Mismo color de botón en App.css */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.inventory-button:hover {
+  background-color: black; /* Coincide con el color hover en App.css */
+  transform: translateY(-2px);
+}
+
+.inventory-button:active {
+  transform: translateY(0);
+}
+
+/* Paneles de contenido */
+.inventory-panel {
+  background-color: #A68A64; /* Coincide con el color del panel scroll */
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
