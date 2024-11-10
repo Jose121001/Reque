@@ -2,10 +2,12 @@
 import React, { useState } from "react";
 import "./LoginModal.css";
 
-const LoginModal = ({ onClose, onLoginSuccess }) => {
+const LoginModal = ({ open, onClose, onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  if (!open) return null; // Si open es false, no se renderiza el modal
 
   const handleSubmit = (event) => {
     event.preventDefault();

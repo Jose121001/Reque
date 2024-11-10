@@ -1,39 +1,40 @@
-// App.js
-
 import React, { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LoginIcon from "@mui/icons-material/Login";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
 import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
 import CakeIcon from "@mui/icons-material/Cake";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 import LocalDiningIcon from "@mui/icons-material/LocalDining";
 import ProductList from "./vistas/ProductList";
 import LoginModal from "./vistas/LoginModal";
+import CarritoModal from "./vistas/CarritoModal";
 import InventoryManagement from "./vistas/Panel_Administracion";
-import Inventory from "./vistas/Inventario";
 import "./App.css";
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false); // Inicialmente false
   const [showInventoryManagement, setShowInventoryManagement] = useState(false);
   const [showInventory, setShowInventory] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [showCarrito, setShowCarrito] = useState(false);
 
+  // Función para abrir el modal de login
   const handleLoginClick = () => {
-    setShowLogin(true);
+    setShowLogin(true); // Muestra el modal
   };
 
+  // Función para cerrar el modal de login
   const handleCloseLogin = () => {
-    setShowLogin(false);
+    setShowLogin(false); // Cierra el modal
   };
 
+  // Función cuando el login es exitoso
   const handleLoginSuccess = () => {
-    setShowLogin(false);
-    setShowInventoryManagement(true);
+    setShowLogin(false); // Cierra el modal
+    setShowInventoryManagement(true); // Muestra el panel de administración
   };
 
   const handleBackToMenu = () => {
@@ -52,6 +53,14 @@ function App() {
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleCarritoClick = () => {
+    setShowCarrito(true); // Muestra el modal del carrito
+  };
+
+  const handleCloseCarrito = () => {
+    setShowCarrito(false); // Cierra el modal del carrito
   };
 
   return (
@@ -81,9 +90,12 @@ function App() {
                     <LoginIcon style={{ marginRight: "8px" }} />
                     Clientes
                   </button>
-                  <button className="boton_Proveedores">
+                  <button
+                    className="boton_Proveedores"
+                    onClick={handleCarritoClick}
+                  >
                     <ShoppingCartIcon style={{ marginRight: "8px" }} />
-                    Proveedores
+                    Carrito
                   </button>
                 </nav>
               </div>
@@ -133,16 +145,18 @@ function App() {
               </div>
             </div>
 
-            <div className="productos_panel">
-              {selectedCategory && <ProductList category={selectedCategory} />}
-            </div>
-
-            {showLogin && (
-              <LoginModal onClose={handleCloseLogin} onLoginSuccess={handleLoginSuccess} />
-            )}
-            {showInventory && <Inventory BackToManageInventory={handleBackToManageInventory} />}
+            {selectedCategory && <ProductList category={selectedCategory} />}
           </>
         )}
+
+        <CarritoModal open={showCarrito} onClose={handleCloseCarrito} />
+        
+        {/* El modal de login solo aparecerá si showLogin es true */}
+        <LoginModal
+          open={showLogin}
+          onClose={handleCloseLogin}
+          onLoginSuccess={handleLoginSuccess}
+        />
       </div>
     </ThemeProvider>
   );

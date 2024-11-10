@@ -9,12 +9,13 @@ const CarritoModal = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       // Obtener los productos desde el backend
-      axios.get("http://localhost:3001/get-carrito")
-        .then(response => {
+      axios
+        .get("http://localhost:3001/productos") // Asegúrate de que la URL sea la correcta
+        .then((response) => {
           setProductos(response.data);
           calcularTotal(response.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.error("Error al obtener los productos:", err);
         });
     }
@@ -26,14 +27,34 @@ const CarritoModal = ({ open, onClose }) => {
   };
 
   const eliminarProducto = (productName) => {
-    axios.post("http://localhost:3001/eliminar-producto", { productName })
+    axios
+      .post("http://localhost:3001/eliminar-producto", { productName })
       .then(() => {
-        // Actualizar el carrito después de eliminar el producto
-        setProductos(prevProductos => prevProductos.filter(product => product.name !== productName));
-        calcularTotal(productos.filter(product => product.name !== productName));
+        // Eliminar el producto del estado
+        setProductos((prevProductos) => {
+          const updatedProductos = prevProductos.filter(
+            (product) => product.name !== productName
+          );
+          calcularTotal(updatedProductos); // Recalcular el total después de eliminar el producto
+          return updatedProductos;
+        });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error al eliminar el producto:", err);
+      });
+  };
+
+  const vaciarCarrito = () => {
+    axios
+      .post("http://localhost:3001/vaciar-carrito") // Llamada al endpoint para vaciar el carrito
+      .then(() => {
+        setProductos([]); // Vaciar el carrito en el frontend
+        setTotal(0); // Resetear el total
+
+        onClose();
+      })
+      .catch((err) => {
+        console.error("Error al vaciar el carrito:", err);
       });
   };
 
@@ -45,9 +66,9 @@ const CarritoModal = ({ open, onClose }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          backgroundColor: "white",
+          backgroundColor: "#656D4A",
           padding: "20px",
-          width: "300px",
+          width: "600px",
           boxShadow: 24,
         }}
       >
@@ -64,7 +85,16 @@ const CarritoModal = ({ open, onClose }) => {
                   <Typography>Cantidad: {producto.quantity}</Typography>
                   <Typography>Precio: ${producto.unitPrice}</Typography>
                   <Typography>Total: ${producto.total}</Typography>
-                  <Button variant="contained" color="error" onClick={() => eliminarProducto(producto.name)}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => eliminarProducto(producto.name)}
+                    sx={{
+                      marginTop: "10px",
+                      marginBottom: "20px",
+                      backgroundColor: "#936639",
+                    }}
+                  >
                     Eliminar
                   </Button>
                   <hr />
@@ -74,7 +104,13 @@ const CarritoModal = ({ open, onClose }) => {
             </div>
           </>
         )}
-        <Button onClick={onClose}>Cerrar</Button>
+      
+        <Button
+          sx={{ backgroundColor: "#936639", color: "#fff", marginLeft:"250px" }}
+          onClick={vaciarCarrito} // Llamar a la función para vaciar el carrito
+        >
+          Pagar
+        </Button>
       </Box>
     </Modal>
   );
