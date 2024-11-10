@@ -1,7 +1,12 @@
+/* Contenedor principal */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
 /* Contenedor del menú lateral */
 .sidebar-menu {
   width: 250px;
-  height: 100vh;
   background-color: #8a8d75;
   padding: 20px;
   display: flex;
@@ -9,6 +14,17 @@
   align-items: center;
   gap: 25px;
   position: relative;
+}
+
+/* Estilo para el panel principal (derecho) */
+.main-content {
+  flex: 1;
+  background-color: #f4f4f4;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* Footer del menú lateral */
@@ -22,7 +38,7 @@
   width: 100%;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 30px; /* Ajusta este valor según la distancia deseada del borde inferior */
+  margin-bottom: 30px;
 }
 
 .inventory-title {
@@ -79,3 +95,89 @@
 .back-button:hover {
   background-color: #c9302c;
 }
+
+/* Estilo para el contenedor principal */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  flex-direction: column;
+  background-color: #f4f4f4;
+  min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+}
+
+/* Estilo para el formulario */
+.admin-panel {
+  background-color: #a4ac86;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 75%; /* Aumentamos el ancho para ocupar más espacio */
+  max-width: 900px; /* Aumentamos el max-width */
+  margin-top: 20px;
+  text-align: center; /* Alinea los elementos dentro del formulario */
+}
+
+.admin-panel h3 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.create-user-form .form-group {
+  margin-bottom: 20px;
+}
+
+.create-user-form label {
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.create-user-form input,
+.create-user-form select {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.create-user-form input::placeholder,
+.create-user-form select {
+  color: #aaa;
+}
+
+.create-user-form button {
+  background-color: #8a8d75;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.create-user-form button:hover {
+  background-color: #6f734f;
+}
+
+/* Estilo para el mensaje de error */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+

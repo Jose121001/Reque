@@ -12,11 +12,23 @@ const LoginModal = ({ open, onClose, onLoginSuccess }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (username === "admin1" && password === "admin1234") {
+    if (username === "adminJuan" && password === "admin1234") {
       localStorage.setItem("currentUser", "admin");
       onLoginSuccess(); // Llama a onLoginSuccess para mostrar el panel de inventario
-    } else if (username === "waiter1" && password === "waiter1234") {
-      localStorage.setItem("currentUser", "mesero");
+    } else if (username === "adminJose" && password === "admin1234") {
+      localStorage.setItem("currentUser", "admin");
+      onLoginSuccess();
+    } else if (username === "adminRaul" && password === "admin1234") {
+      localStorage.setItem("currentUser", "admin");
+      onLoginSuccess();
+    } else if (username === "meseroJosimar" && password === "mesero1234") {
+      localStorage.setItem("currentUser", "admin");
+      onLoginSuccess();
+    } else if (username === "meseroDaniel" && password === "mesero1234") {
+      localStorage.setItem("currentUser", "admin");
+      onLoginSuccess();
+    } else if (username === "cocinero" && password === "cook1234") {
+      localStorage.setItem("currentUser", "cocinero");
       onLoginSuccess();
     } else if (username === "cook1" && password === "cook1234") {
       localStorage.setItem("currentUser", "cocinero");
