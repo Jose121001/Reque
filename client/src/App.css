@@ -266,7 +266,7 @@ body {
   white-space: nowrap; /* Evitar el salto de línea en los elementos */
   background-color: #A68A64; /* Fondo del panel */
   padding: 5px; /* Espaciado interno reducido */
-  border-top: 1px solid #fff; /* Línea separadora */
+  border-top: 1px solid #A68A64; /* Línea separadora */
   width: 100%;
   margin: 0 auto; /* Centrar el panel horizontalmente */
 }
