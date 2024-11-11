@@ -220,14 +220,17 @@
 }
 
 .inventory-button {
-  background-color: #A4AC86;
+  background-color: #a4ac86;
   color: white;
-  padding: 12px 16px; /* Aumenta el tamaño de los botones */
+  padding: 25px 45px; /* Aumentamos el padding */
   border: none;
-  border-radius: 8px;
-  font-size: 16px; /* Incrementa el tamaño de la fuente del botón */
+  border-radius: 5px;
+  font-size: 20px; /* Aumentamos el tamaño de la fuente */
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Agrega una transición suave al cambiar el color */
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Aumentamos el ancho al 100% del contenedor */
+  text-align: center;
 }
 
 .inventory-button:hover {

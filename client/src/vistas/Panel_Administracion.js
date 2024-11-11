@@ -3,24 +3,22 @@ import "./Panel_Administracion.css";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
 const PanelAdministracion = ({ onBack }) => {
-  const [isAdminPanelVisible, setIsAdminPanelVisible] = useState(false);
+  const [activeSection, setActiveSection] = useState(""); // Estado para la sección activa
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  // Estado para manejar el mensaje de acceso denegado
   const [accessDeniedMessage, setAccessDeniedMessage] = useState("");
 
   useEffect(() => {
-    // Recuperamos el rol del usuario desde localStorage
     const currentUserRole = localStorage.getItem("currentUser");
     setRole(currentUserRole);
   }, []);
 
   const handleAdminClick = () => {
     if (role === "admin") {
-      setIsAdminPanelVisible(true); // Muestra el panel de administración cuando se hace clic
+      setActiveSection("admin"); // Muestra la sección de administración
+      setAccessDeniedMessage(""); // Limpia el mensaje de acceso denegado si está activo
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
@@ -28,7 +26,8 @@ const PanelAdministracion = ({ onBack }) => {
 
   const handleGoToCocina = () => {
     if (role === "admin" || role === "cocinero") {
-      // Lógica para redirigir a la sección de Cocina
+      setActiveSection("cocina");
+      setAccessDeniedMessage("");
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
@@ -36,7 +35,8 @@ const PanelAdministracion = ({ onBack }) => {
 
   const handleGoToOrdenes = () => {
     if (role === "admin" || role === "mesero") {
-      // Lógica para redirigir a la sección de Ordenes
+      setActiveSection("ordenes");
+      setAccessDeniedMessage("");
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
@@ -44,7 +44,8 @@ const PanelAdministracion = ({ onBack }) => {
 
   const handleGoToInventory = () => {
     if (role === "admin" || role === "mesero" || role === "cocinero") {
-      // Lógica para redirigir a la sección de Inventario
+      setActiveSection("inventario");
+      setAccessDeniedMessage("");
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
@@ -52,23 +53,16 @@ const PanelAdministracion = ({ onBack }) => {
 
   const handleCreateUser = (event) => {
     event.preventDefault();
-
     if (!username || !password || !role) {
       setErrorMessage("Por favor, complete todos los campos.");
       return;
     }
-
-    // Aquí podrías agregar la lógica para crear el usuario en la base de datos
     console.log(`Usuario creado: ${username} con el rol: ${role}`);
-
-    // Limpiar formulario y mostrar mensaje de éxito
     setUsername("");
     setPassword("");
     setRole("");
     setErrorMessage("");
   };
-
-  
 
   return (
     <div className="container">
@@ -85,7 +79,7 @@ const PanelAdministracion = ({ onBack }) => {
           <button
             className="inventory-button"
             onClick={handleGoToCocina}
-            disabled={role !== "admin" && role !== "mesero"}
+            disabled={role !== "admin" && role !== "cocinero"}
           >
             Cocina
           </button>
@@ -108,16 +102,14 @@ const PanelAdministracion = ({ onBack }) => {
           Regresar al Menú Principal
         </button>
         
-        {/* Footer del menú lateral */}
         <footer className="sidebar-footer">
           <OutdoorGrillIcon style={{ marginRight: "8px" }} />
           <span>Grill Steak</span>
         </footer>
       </div>
       
-      {/* Panel derecho (Contenido principal) */}
       <div className="main-content">
-        {isAdminPanelVisible && (
+        {activeSection === "admin" && (
           <div className="admin-panel">
             <h3>Gestión de Usuarios</h3>
             <form onSubmit={handleCreateUser} className="create-user-form">
@@ -166,7 +158,27 @@ const PanelAdministracion = ({ onBack }) => {
           </div>
         )}
 
-        {/* Mostrar mensaje de acceso denegado si es necesario */}
+        {activeSection === "cocina" && (
+          <div className="cocina-panel">
+            <h3>Sección de Cocina</h3>
+            {/* Contenido de la sección Cocina */}
+          </div>
+        )}
+
+        {activeSection === "ordenes" && (
+          <div className="ordenes-panel">
+            <h3>Sección de Ordenes</h3>
+            {/* Contenido de la sección Ordenes */}
+          </div>
+        )}
+
+        {activeSection === "inventario" && (
+          <div className="inventory-panel">
+            <h3>Sección de Inventario</h3>
+            {/* Contenido de la sección Inventario */}
+          </div>
+        )}
+
         {accessDeniedMessage && (
           <div className="access-denied-message">
             <p>{accessDeniedMessage}</p>
