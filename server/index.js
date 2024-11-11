@@ -14,10 +14,6 @@ app.use(express.json());  // Necesario para procesar el cuerpo de la solicitud c
 
 // Ruta para agregar un producto al carrito y escribirlo en el archivo
 
-
-app.use(express.json());
-app.use(express.json());
-
 app.post('/guardar-producto', (req, res) => {
   const { name, quantity, unitPrice, total } = req.body;
 
@@ -31,7 +27,7 @@ app.post('/guardar-producto', (req, res) => {
     let products = [];
     if (!err) {
       try {
-        products = JSON.parse(data);  // Parsear el contenido existente
+        products = JSON.parse(data); // Parsear el contenido existente
       } catch (error) {
         console.error('Error al parsear JSON:', error);
       }
@@ -39,16 +35,27 @@ app.post('/guardar-producto', (req, res) => {
 
     products.push(newProduct);
 
+    // Escribir en el primer archivo
     fs.writeFile('productos.json', JSON.stringify(products, null, 2), (err) => {
       if (err) {
-        console.error('Error al escribir en el archivo:', err);
+        console.error('Error al escribir en el archivo productos.json:', err);
         return res.status(500).json({ message: 'Error al guardar el producto' });
       }
 
-      res.status(200).json({ message: 'Producto guardado correctamente' });
+      // Escribir en el segundo archivo (backup)
+      fs.writeFile('factura_Productos.json', JSON.stringify(products, null, 2), (err) => {
+        if (err) {
+          console.error('Error al escribir en el archivo productos_backup.json:', err);
+          return res.status(500).json({ message: 'Error al guardar el producto en el backup' });
+        }
+
+        // Responder solo si ambos archivos se escribieron correctamente
+        res.status(200).json({ message: 'Producto guardado correctamente en ambos archivos' });
+      });
     });
   });
 });
+
 
 // Endpoint para leer los productos en JSON
 app.get('/productos', (req, res) => {
@@ -67,6 +74,28 @@ app.get('/productos', (req, res) => {
         );
   
         res.status(200).json(products);  // Envía los productos en formato JSON
+      } catch (parseError) {
+        console.error("Error al parsear el archivo JSON:", parseError);
+        res.status(500).json({ message: "Error al parsear el archivo JSON" });
+      }
+    });
+  });
+
+
+
+
+
+  
+  app.get('/factura', (req, res) => {
+    fs.readFile('factura_Productos.json', 'utf-8', (err, data) => {
+      if (err) {
+        console.error('Error al leer el archivo:', err);
+        return res.status(500).json({ message: 'Error al leer los productos' });
+      }
+  
+      try {
+        const products = JSON.parse(data); // Parsear el contenido del archivo JSON
+        res.status(200).json(products); // Envía los productos en formato JSON
       } catch (parseError) {
         console.error("Error al parsear el archivo JSON:", parseError);
         res.status(500).json({ message: "Error al parsear el archivo JSON" });

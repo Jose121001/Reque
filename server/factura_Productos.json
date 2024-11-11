@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Sopa de Tomate",
+    "quantity": 3,
+    "unitPrice": 10,
+    "total": 30
+  },
+  {
+    "name": "Costillas_bbq",
+    "quantity": 1,
+    "unitPrice": 10,
+    "total": 10
+  },
+  {
+    "name": "Tomahack",
+    "quantity": 1,
+    "unitPrice": 10,
+    "total": 10
+  },
+  {
+    "name": "agua enbotellada",
+    "quantity": 1,
+    "unitPrice": 10,
+    "total": 10
+  },
+  {
+    "name": "margarita",
+    "quantity": 1,
+    "unitPrice": 10,
+    "total": 10
+  }
+]
