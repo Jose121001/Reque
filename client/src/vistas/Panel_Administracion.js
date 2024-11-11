@@ -3,18 +3,20 @@ import "./Panel_Administracion.css";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
 const PanelAdministracion = ({ onBack }) => {
-  const [activeSection, setActiveSection] = useState(null); // Estado para la sección activa
+  const [activeSection, setActiveSection] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [accessDeniedMessage, setAccessDeniedMessage] = useState("");
-
-  const items = [
+  const [items, setItems] = useState([
     { id: 1, name: "Pizza", cantidad: 100 },
     { id: 2, name: "Hamburguesa", cantidad: 200 },
     { id: 3, name: "Ensalada", cantidad: 300 },
-  ];
+  ]);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newItem, setNewItem] = useState({ id: "", name: "", cantidad: "" });
+  const [editItem, setEditItem] = useState(null);  // Estado para editar un producto
 
   useEffect(() => {
     const currentUserRole = localStorage.getItem("currentUser");
@@ -23,8 +25,8 @@ const PanelAdministracion = ({ onBack }) => {
 
   const handleSectionClick = (section, requiredRole) => {
     if (requiredRole.includes(role)) {
-      setActiveSection(section); // Cambia la sección activa
-      setAccessDeniedMessage(""); // Limpia el mensaje de acceso denegado
+      setActiveSection(section);
+      setAccessDeniedMessage("");
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
@@ -41,6 +43,54 @@ const PanelAdministracion = ({ onBack }) => {
     setPassword("");
     setRole("");
     setErrorMessage("");
+  };
+
+  const handleAddItemClick = () => {
+    setShowAddForm(true);
+    setEditItem(null); // Aseguramos que no se esté editando ningún artículo cuando se agrega uno nuevo
+  };
+
+  const handleEditItemClick = (item) => {
+    setEditItem(item); // Establecemos el producto a editar
+    setShowAddForm(true); // Mostramos el formulario de agregar (pero con datos de edición)
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (editItem) {
+      setEditItem((prev) => ({ ...prev, [name]: value }));
+    } else {
+      setNewItem((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleAddItemSubmit = (e) => {
+    e.preventDefault();
+    if (newItem.id && newItem.name && newItem.cantidad) {
+      setItems((prevItems) => [
+        ...prevItems,
+        { id: newItem.id, name: newItem.name, cantidad: parseInt(newItem.cantidad) },
+      ]);
+      setNewItem({ id: "", name: "", cantidad: "" });
+      setShowAddForm(false);
+    }
+  };
+
+  const handleEditItemSubmit = (e) => {
+    e.preventDefault();
+    if (editItem) {
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === editItem.id ? { ...item, name: editItem.name, cantidad: parseInt(editItem.cantidad) } : item
+        )
+      );
+      setEditItem(null); // Limpiar el estado de edición después de actualizar
+      setShowAddForm(false);
+    }
+  };
+
+  const handleDeleteItem = (id) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   return (
@@ -83,90 +133,77 @@ const PanelAdministracion = ({ onBack }) => {
       </div>
 
       <div className="main-content">
-        {activeSection === "administracion" && (
-          <div className="admin-panel">
-            <h3>Gestión de Usuarios</h3>
-            <form onSubmit={handleCreateUser} className="create-user-form">
-              <div className="form-group">
-                <label htmlFor="username">Nombre de Usuario</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  placeholder="Ingresa un nombre de usuario"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Contraseña</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Ingresa una contraseña"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="role">Rol</label>
-                <select
-                  id="role"
-                  name="role"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  required
-                >
-                  <option value="">Seleccione un rol</option>
-                  <option value="Admin">Administrador</option>
-                  <option value="Mesero">Mesero</option>
-                  <option value="Cocinero">Cocinero</option>
-                </select>
-              </div>
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <button type="submit" className="create-user-button">Crear Usuario</button>
-            </form>
-          </div>
-        )}
-
         {activeSection === "inventario" && (
           <div className="inventory-container">
-<<<<<<< HEAD
-          <h2>Inventario de Artículos de Comida</h2>
-          <div className="item-list">
-            {items.map((item) => (
-              <div className="item" key={item.id}>
-                <span>{item.name}</span>
-                <span>{item.cantidad}</span>
-                <div className="item-buttons">
-                  <button className="inventory-button">Editar</button>
-                  <button className="inventory-button">Eliminar</button>
-                  <button className="inventory-button">Agregar</button>
-=======
             <h2>Inventario de Artículos de Comida</h2>
             <div className="item-list">
               {items.map((item) => (
                 <div className="item" key={item.id}>
                   <span>{item.name}</span>
+                  <span>{item.cantidad}</span>
                   <div className="item-buttons">
-                    <button className="inventory-button">Editar</button>
-                    <button className="inventory-button">Eliminar</button>
-                    <button className="inventory-button">Agregar</button>
+                    <button className="inventory-button" onClick={() => handleEditItemClick(item)}>
+                      Editar
+                    </button>
+                    <button className="inventory-button" onClick={() => handleDeleteItem(item.id)}>
+                      Eliminar
+                    </button>
                   </div>
->>>>>>> e19453bda68af90f7d9e174c39321f3531e7c75d
                 </div>
               ))}
             </div>
+            <button className="inventory-button" onClick={handleAddItemClick}>
+              Agregar
+            </button>
+
+            {showAddForm && (
+              <form onSubmit={editItem ? handleEditItemSubmit : handleAddItemSubmit} className="add-item-form">
+                <h3>{editItem ? "Editar Artículo" : "Agregar Nuevo Artículo"}</h3>
+                <div className="form-group">
+                  <label htmlFor="id">ID</label>
+                  <input
+                    type="text"
+                    id="id"
+                    name="id"
+                    value={editItem ? editItem.id : newItem.id}
+                    onChange={handleInputChange}
+                    required
+                    disabled={editItem} // No permitir cambiar el ID en la edición
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="name">Nombre</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={editItem ? editItem.name : newItem.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="cantidad">Cantidad</label>
+                  <input
+                    type="number"
+                    id="cantidad"
+                    name="cantidad"
+                    value={editItem ? editItem.cantidad : newItem.cantidad}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <button type="submit" className="inventory-button">
+                  {editItem ? "Guardar Cambios" : "Agregar"}
+                </button>
+              </form>
+            )}
             <button className="back-button" onClick={() => setActiveSection(null)}>
               Regresar al Panel de Inventario
             </button>
           </div>
         )}
 
-        {/* Mostrar mensaje de acceso denegado si es necesario */}
         {accessDeniedMessage && (
           <div className="access-denied-message">
             <p>{accessDeniedMessage}</p>

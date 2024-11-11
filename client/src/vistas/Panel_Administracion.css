@@ -252,3 +252,37 @@
 .back-button:hover {
   background-color: #333;
 }
+
+/* Interfaz del formulario de Agregar Producto*/
+.add-item-form {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.add-item-form h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.add-item-form .form-group {
+  margin-bottom: 10px;
+}
+
+.add-item-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.add-item-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-item-form .inventory-button {
+  margin-top: 10px;
+}
