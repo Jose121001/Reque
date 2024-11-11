@@ -110,7 +110,7 @@
 
 /* Estilo para el formulario */
 .admin-panel {
-  background-color: #a4ac86;
+  background-color: white;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -335,7 +335,7 @@
 .finalizar-button {
   background-color: #8a8d75;
   color: white;
-  padding: 15px 15px; /* Botón más pequeño */
+  padding: 16px 15px; /* Botón más pequeño */
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -418,3 +418,167 @@
   color: #ffffff;
 }
 
+.user-management-panel {
+  background-color: #f4f4f4; /* Coincide con el fondo del panel de cocina */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Similar al estilo de sombra */
+  width: 90%; /* Ocupa el 90% del ancho */
+  margin: 0 auto;
+}
+
+.user-management-panel h3 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #8a8d75; /* Color del texto similar al de cocina-panel */
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.user-action-button {
+  flex: 1;
+  max-width: 150px;
+  padding: 15px;
+  background-color: #8a8d75; /* Color de fondo del botón */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-action-button:hover {
+  background-color: #0056b3; /* Color cuando el botón se pasa por encima */
+}
+
+.modify-user-panel {
+  background-color: #f4f4f4;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 0 auto;
+}
+
+.modify-user-panel h3 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #8a8d75;
+  text-align: center;
+}
+
+.modify-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+input, select {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #8a8d75;
+}
+
+.modify-user-button {
+  padding: 15px;
+  background-color: #8a8d75;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modify-user-button:hover {
+  background-color: #7a7c63;
+}
+
+.delete-user-panel {
+  background-color: #f4f4f4;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 0 auto;
+}
+
+.delete-user-panel h3 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #8a8d75;
+  text-align: center;
+}
+
+.delete-user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 1em;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+input {
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+input:focus {
+  outline: none;
+  border-color: #8a8d75;
+}
+
+.confirmation-message {
+  font-size: 1em;
+  color: #d9534f;
+  text-align: center;
+}
+
+.delete-user-button {
+  padding: 15px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-user-button:hover {
+  background-color: #c9302c;
+}

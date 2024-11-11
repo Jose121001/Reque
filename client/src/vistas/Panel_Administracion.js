@@ -66,7 +66,7 @@ const finalizeOrderByName = (name) => {
 
   const handleAdminClick = () => {
     if (role === "admin") {
-      setActiveSection("admin"); // Muestra la sección de administración
+      setActiveSection("userManagement"); // Muestra la sección de administración
       setAccessDeniedMessage(""); // Limpia el mensaje de acceso denegado si está activo
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
@@ -168,6 +168,20 @@ const finalizeOrderByName = (name) => {
   const handleDeleteItem = (id) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
+  
+
+// Función para manejar la modificación del usuario
+const handleModifyUser = (e) => {
+  e.preventDefault();
+  // Aquí iría la lógica para actualizar el usuario en la base de datos o en el estado de la aplicación
+  //console.log(Usuario modificado: ${username}, Nuevo Rol: ${role});
+};
+
+const handleDeleteUser = (e) => {
+  e.preventDefault();
+  // Aquí iría la lógica para eliminar el usuario en la base de datos o en el estado de la aplicación
+  //console.log(Usuario eliminado: ${username});
+};
 
   return (
     <div className="container">
@@ -218,57 +232,126 @@ const finalizeOrderByName = (name) => {
       </div>
 
       <div className="main-content">
-        {activeSection === "admin" && (
-          <div className="admin-panel">
-            <h3>Gestión de Usuarios</h3>
-            <form onSubmit={handleCreateUser} className="create-user-form">
-              <div className="form-group">
-                <label htmlFor="username">Nombre de Usuario</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  placeholder="Ingresa un nombre de usuario"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Contraseña</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Ingresa una contraseña"
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="role">Rol</label>
-                <select
-                  id="role"
-                  name="role"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  required
-                >
-                  <option value="">Seleccione un rol</option>
-                  <option value="Admin">Administrador</option>
-                  <option value="Mesero">Mesero</option>
-                  <option value="Cocinero">Cocinero</option>
-                </select>
-              </div>
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <button type="submit" className="create-user-button">
-                Crear Usuario
-              </button>
-            </form>
-          </div>
-        )}
+      {activeSection === "userManagement" && (
+    <div className="user-management-panel">
+      <h3>Gestión de Usuarios</h3>
+      <div className="button-group">
+        <button onClick={() => setActiveSection("admin")} className="user-action-button">Agregar Usuario</button>
+        <button onClick={() => setActiveSection("modify")} className="user-action-button">Modificar Usuario</button>
+        <button onClick={() => setActiveSection("delete")} className="user-action-button">Eliminar Usuario</button>
+      </div>
+    </div>
+     )}
 
+
+  {activeSection === "admin" && (
+    <div className="admin-panel">
+      <h3>Gestión de Usuarios</h3>
+      <form onSubmit={handleCreateUser} className="create-user-form">
+        <div className="form-group">
+          <label htmlFor="username">Nombre de Usuario</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            placeholder="Ingresa un nombre de usuario"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Ingresa una contraseña"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="role">Rol</label>
+          <select
+            id="role"
+            name="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          >
+            <option value="">Seleccione un rol</option>
+            <option value="Admin">Administrador</option>
+            <option value="Mesero">Mesero</option>
+            <option value="Cocinero">Cocinero</option>
+          </select>
+        </div>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button type="submit" className="create-user-button">Crear Usuario</button>
+      </form>
+    </div>
+  )}
+
+  {activeSection === "modify" && (
+    <div className="modify-user-panel">
+      <h3>Modificar Usuario</h3>
+      <form onSubmit={handleModifyUser} className="modify-user-form">
+        <div className="form-group">
+          <label htmlFor="username">Nombre de Usuario</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            placeholder="Ingresa el nombre de usuario"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="role">Rol</label>
+          <select
+            id="role"
+            name="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          >
+            <option value="">Seleccione un rol</option>
+            <option value="Admin">Administrador</option>
+            <option value="Mesero">Mesero</option>
+            <option value="Cocinero">Cocinero</option>
+          </select>
+        </div>
+        <button type="submit" className="modify-user-button">Modificar Usuario</button>
+      </form>
+    </div>
+  )}
+
+{activeSection === "delete" && (
+    <div className="delete-user-panel">
+      <h3>Eliminar Usuario</h3>
+      <form onSubmit={handleDeleteUser} className="delete-user-form">
+        <div className="form-group">
+          <label htmlFor="username">Nombre de Usuario</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            placeholder="Ingresa el nombre de usuario a eliminar"
+          />
+        </div>
+        <div className="confirmation-message">
+          <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
+        </div>
+        <button type="submit" className="delete-user-button">Eliminar Usuario</button>
+      </form>
+    </div>
+  )}
 {activeSection === "cocina" && (
   <div className="cocina-panel">
     <h2>Órdenes Actuales</h2>
