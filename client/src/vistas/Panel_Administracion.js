@@ -3,17 +3,13 @@ import "./Panel_Administracion.css";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
 const PanelAdministracion = ({ onBack }) => {
-  const [isAdminPanelVisible, setIsAdminPanelVisible] = useState(false);
-  const [handldeGoToInventory, sethandldeGoToInventory] = useState(false);
+  const [activeSection, setActiveSection] = useState(null); // Estado para la sección activa
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  // Estado para manejar el mensaje de acceso denegado
   const [accessDeniedMessage, setAccessDeniedMessage] = useState("");
 
-  // Simulamos algunos artículos de comida
   const items = [
     { id: 1, name: "Pizza", cantidad: 100 },
     { id: 2, name: "Hamburguesa", cantidad: 200 },
@@ -21,59 +17,26 @@ const PanelAdministracion = ({ onBack }) => {
   ];
 
   useEffect(() => {
-    // Recuperamos el rol del usuario desde localStorage
     const currentUserRole = localStorage.getItem("currentUser");
     setRole(currentUserRole);
   }, []);
 
-  const handleAdminClick = () => {
-    if (role === "admin") {
-      setIsAdminPanelVisible(true); // Muestra el panel de administración cuando se hace clic
+  const handleSectionClick = (section, requiredRole) => {
+    if (requiredRole.includes(role)) {
+      setActiveSection(section); // Cambia la sección activa
+      setAccessDeniedMessage(""); // Limpia el mensaje de acceso denegado
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
-  };
-
-  const handleGoToCocina = () => {
-    if (role === "admin" || role === "cocinero") {
-      // Lógica para redirigir a la sección de Cocina
-    } else {
-      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
-    }
-  };
-
-  const handleGoToOrdenes = () => {
-    if (role === "admin" || role === "mesero") {
-      // Lógica para redirigir a la sección de Ordenes
-    } else {
-      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
-    }
-  };
-
-  const handleInventoryClick = () => {
-    if (role === "admin" || role === "mesero" || role === "cocinero") {
-      sethandldeGoToInventory(true);
-    } else {
-      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
-    }
-  };
-
-  const BackToManageInventory = () => {
-    sethandldeGoToInventory(false);
   };
 
   const handleCreateUser = (event) => {
     event.preventDefault();
-
     if (!username || !password || !role) {
       setErrorMessage("Por favor, complete todos los campos.");
       return;
     }
-
-    // Aquí podrías agregar la lógica para crear el usuario en la base de datos
     console.log(`Usuario creado: ${username} con el rol: ${role}`);
-
-    // Limpiar formulario y mostrar mensaje de éxito
     setUsername("");
     setPassword("");
     setRole("");
@@ -87,29 +50,25 @@ const PanelAdministracion = ({ onBack }) => {
         <div className="button-container">
           <button
             className="inventory-button"
-            onClick={handleInventoryClick}
-            disabled={role !== "admin" && role !== "mesero" && role !== "cocinero"}
+            onClick={() => handleSectionClick("inventario", ["admin", "mesero", "cocinero"])}
           >
             Inventario
           </button>
           <button
             className="inventory-button"
-            onClick={handleGoToCocina}
-            disabled={role !== "admin" && role !== "mesero"}
+            onClick={() => handleSectionClick("cocina", ["admin", "cocinero"])}
           >
             Cocina
           </button>
           <button
             className="inventory-button"
-            onClick={handleAdminClick}
-            disabled={role !== "admin"}
+            onClick={() => handleSectionClick("administracion", ["admin"])}
           >
             Administración
           </button>
           <button
             className="inventory-button"
-            onClick={handleGoToOrdenes}
-            disabled={role !== "admin" && role !== "mesero"}
+            onClick={() => handleSectionClick("ordenes", ["admin", "mesero"])}
           >
             Ordenes
           </button>
@@ -117,17 +76,14 @@ const PanelAdministracion = ({ onBack }) => {
         <button className="back-button" onClick={onBack}>
           Regresar al Menú Principal
         </button>
-        
-        {/* Footer del menú lateral */}
         <footer className="sidebar-footer">
           <OutdoorGrillIcon style={{ marginRight: "8px" }} />
           <span>Grill Steak</span>
         </footer>
       </div>
-      
-      {/* Panel derecho (Contenido principal) */}
+
       <div className="main-content">
-        {isAdminPanelVisible && (
+        {activeSection === "administracion" && (
           <div className="admin-panel">
             <h3>Gestión de Usuarios</h3>
             <form onSubmit={handleCreateUser} className="create-user-form">
@@ -176,28 +132,26 @@ const PanelAdministracion = ({ onBack }) => {
           </div>
         )}
 
-        {handldeGoToInventory && (
+        {activeSection === "inventario" && (
           <div className="inventory-container">
-          <h2>Inventario de Artículos de Comida</h2>
-          <div className="item-list">
-            {items.map((item) => (
-              <div className="item" key={item.id}>
-                <span>{item.name}</span>
-                <div className="item-buttons">
-                  <button className="inventory-button">Editar</button>
-                  <button className="inventory-button">Eliminar</button>
-                  <button className="inventory-button">Agregar</button>
+            <h2>Inventario de Artículos de Comida</h2>
+            <div className="item-list">
+              {items.map((item) => (
+                <div className="item" key={item.id}>
+                  <span>{item.name}</span>
+                  <div className="item-buttons">
+                    <button className="inventory-button">Editar</button>
+                    <button className="inventory-button">Eliminar</button>
+                    <button className="inventory-button">Agregar</button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <button className="back-button" onClick={() => setActiveSection(null)}>
+              Regresar al Panel de Inventario
+            </button>
           </div>
-    
-          {/* Botón para regresar al panel de inventario */}
-          <button className="back-button" onClick={BackToManageInventory}>
-            Regresar al Panel de Inventario
-          </button>
-        </div>
-        )}  
+        )}
 
         {/* Mostrar mensaje de acceso denegado si es necesario */}
         {accessDeniedMessage && (
