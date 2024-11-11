@@ -143,15 +143,17 @@ body {
 
 /* Boton ventas */
 .boton_Category {
-  background-color: #936639; /* Color de fondo */
-  color: white; /* Color del texto */
-  padding: 12px 20px; /* Espaciado interno */
-  border: none; /* Sin borde */
-  border-radius: 5px; /* Bordes redondeados */
-  font-size: 16px; /* Tamaño de la fuente */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  background-color: #936639;
+  color: white;
+  padding: 20px 60px; /* Aumenta el espaciado interno */
+  width: 250px; /* Define un ancho más amplio para los botones */
+  border: none;
+  border-radius: 8px;
+  font-size: 20px; /* Aumenta el tamaño de la fuente */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
   
 }
 
@@ -262,14 +264,18 @@ body {
 
 /* Scroll */
 .panel_scroll {
-  overflow-x: auto; /* Habilitar desplazamiento horizontal */
-  white-space: nowrap; /* Evitar el salto de línea en los elementos */
-  background-color: #A68A64; /* Fondo del panel */
-  padding: 5px; /* Espaciado interno reducido */
-  border-top: 1px solid #A68A64; /* Línea separadora */
-  width: 100%;
-  margin: 0 auto; /* Centrar el panel horizontalmente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #A68A64;
+  padding: 20px 10px; /* Aumenta el espaciado vertical del panel */
+  border-top: 1px solid #A68A64;
+  width: 100vw;
+  box-sizing: border-box;
+  margin: 0;
+  gap: 25px; /* Espacio entre los botones */
 }
+
 
 .contenido_panel {
   display: inline-block; /* Mostrar los elementos en línea */
@@ -358,4 +364,8 @@ body {
   color: #8e3d26;
   font-weight: bold;
   cursor: pointer;
+}
+
+.App {
+  overflow-x: hidden;
 }

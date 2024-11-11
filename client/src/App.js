@@ -21,6 +21,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showCarrito, setShowCarrito] = useState(false);
 
+ 
   // Función para abrir el modal de login
   const handleLoginClick = () => {
     setShowLogin(true); // Muestra el modal
@@ -102,7 +103,7 @@ function App() {
             </header>
 
             <div className="panel_scroll">
-              <div className="contenido_panel">
+              
                 <button
                   className="boton_Category"
                   onClick={() => handleCategoryClick("entradas")}
@@ -142,7 +143,7 @@ function App() {
                   <CakeIcon style={{ marginRight: "8px" }} />
                   Postres
                 </button>
-              </div>
+            
             </div>
 
             {selectedCategory && <ProductList category={selectedCategory} />}
