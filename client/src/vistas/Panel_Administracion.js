@@ -183,6 +183,7 @@ const PanelAdministracion = ({ onBack }) => {
             {items.map((item) => (
               <div className="item" key={item.id}>
                 <span>{item.name}</span>
+                <span>{item.cantidad}</span>
                 <div className="item-buttons">
                   <button className="inventory-button">Editar</button>
                   <button className="inventory-button">Eliminar</button>
