@@ -9,30 +9,21 @@ const LoginModal = ({ open, onClose, onLoginSuccess }) => {
 
   if (!open) return null; // Si open es false, no se renderiza el modal
 
+  const users = {
+    adminJuan: { password: "admin1234", role: "admin" },
+    adminJose: { password: "admin1234", role: "admin" },
+    adminRaul: { password: "admin1234", role: "admin" },
+    meseroJosimar: { password: "mesero1234", role: "mesero" },
+    meseroDaniel: { password: "mesero1234", role: "mesero" },
+    cocineroDiego: { password: "cocinero1234", role: "cocinero" },
+    cocineroEmilio: { password: "cocinero1234", role: "cocinero" }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (username === "adminJuan" && password === "admin1234") {
-      localStorage.setItem("currentUser", "admin");
-      onLoginSuccess(); // Llama a onLoginSuccess para mostrar el panel de inventario
-    } else if (username === "adminJose" && password === "admin1234") {
-      localStorage.setItem("currentUser", "admin");
-      onLoginSuccess();
-    } else if (username === "adminRaul" && password === "admin1234") {
-      localStorage.setItem("currentUser", "admin");
-      onLoginSuccess();
-    } else if (username === "meseroJosimar" && password === "mesero1234") {
-      localStorage.setItem("currentUser", "mesero");
-      onLoginSuccess();
-    } else if (username === "meseroDaniel" && password === "mesero1234") {
-      localStorage.setItem("currentUser", "mesero");
-      onLoginSuccess();
-    } else if (username === "cocineroDiego" && password === "cocinero1234") {
-      localStorage.setItem("currentUser", "cocinero");
-      onLoginSuccess();
-    } else if (username === "cocineroEmilio" && password === "cocinero1234") {
-      localStorage.setItem("currentUser", "cocinero");
-      onLoginSuccess();
+    const user = users[username];
+    if (user && user.password === password) {
+      localStorage.setItem("currentUser", user.role);
+      onLoginSuccess(); // Llama a onLoginSuccess para mostrar el panel correspondiente
     } else {
       setErrorMessage("Credenciales incorrectas, por favor intenta de nuevo.");
     }
