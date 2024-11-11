@@ -335,13 +335,16 @@
 .finalizar-button {
   background-color: #8a8d75;
   color: white;
-  padding: 8px 15px; /* Botón más pequeño */
+  padding: 15px 15px; /* Botón más pequeño */
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
-  align-self: flex-end; /* Alinea el botón a la derecha */
+  align-self: flex; /* Alinea el botón a la derecha */
+  margin-left: 1350px;
+  margin-right: 30px;
+ 
 }
 
 .finalizar-button:hover {

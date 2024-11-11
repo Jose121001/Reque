@@ -19,16 +19,12 @@ const PanelAdministracion = ({ onBack }) => {
     { id: 3, name: "Ensalada", cantidad: 300 },
   ]);
 
-const [orders, setOrders] = useState([
-    "Orden #1 - Pizza , ",
-    "Orden #2 - Pasta",
-    "Orden #3 - Ensalada"
-  ]);
+
   
-  const finalizeOrder = (index) => {
-    const updatedOrders = orders.filter((_, i) => i !== index);
-    setOrders(updatedOrders);
-  };
+const finalizeOrderByName = (name) => {
+  const updatedFactura = factura.filter(item => item.name !== name);
+  setFactura(updatedFactura);
+};
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItem, setNewItem] = useState({ id: "", name: "", cantidad: "" });
@@ -208,7 +204,7 @@ const [orders, setOrders] = useState([
             onClick={handleGoToOrdenes}
             disabled={role !== "admin" && role !== "mesero"}
           >
-            Ordenes
+            Facturacion
           </button>
         </div>
         <button className="back-button" onClick={onBack}>
@@ -273,18 +269,21 @@ const [orders, setOrders] = useState([
           </div>
         )}
 
-       {activeSection === "cocina" && (
-          <div className="cocina-panel">
-            <h2>Órdenes Actuales</h2>
-            {orders.map((order, index) => (
-              <div key={index} className="order-item">
-                <span>{order}</span>
-                <button className="finalizar-button" onClick={() => finalizeOrder(index)}>
-                  Finalizar Orden
-                </button>
-              </div>
-            ))}
-          </div>
+{activeSection === "cocina" && (
+  <div className="cocina-panel">
+    <h2>Órdenes Actuales</h2>
+    {factura.map((facturaItem, index) => (
+      <div key={index} className="order-item">
+        <div className="factura-item-body">
+          <h3 style={{color:'#8a8d75'}}>{facturaItem.name}</h3>
+          <p style={{color:'#8a8d75', marginTop:'2px'}}><strong style={{color:'#8a8d75'}}>Cantidad:</strong> {facturaItem.quantity}</p>
+        </div>
+        <button className="finalizar-button"  onClick={() => finalizeOrderByName(facturaItem.name)}>
+          Finalizar Orden
+        </button>
+      </div>
+    ))}
+  </div>
         )}
 
 {activeSection === "ordenes" && isOpen && (
