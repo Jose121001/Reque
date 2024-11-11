@@ -22,15 +22,15 @@ const LoginModal = ({ open, onClose, onLoginSuccess }) => {
       localStorage.setItem("currentUser", "admin");
       onLoginSuccess();
     } else if (username === "meseroJosimar" && password === "mesero1234") {
-      localStorage.setItem("currentUser", "admin");
+      localStorage.setItem("currentUser", "mesero");
       onLoginSuccess();
     } else if (username === "meseroDaniel" && password === "mesero1234") {
-      localStorage.setItem("currentUser", "admin");
+      localStorage.setItem("currentUser", "mesero");
       onLoginSuccess();
-    } else if (username === "cocinero" && password === "cook1234") {
+    } else if (username === "cocineroDiego" && password === "cocinero1234") {
       localStorage.setItem("currentUser", "cocinero");
       onLoginSuccess();
-    } else if (username === "cook1" && password === "cook1234") {
+    } else if (username === "cocineroEmilio" && password === "cocinero1234") {
       localStorage.setItem("currentUser", "cocinero");
       onLoginSuccess();
     } else {

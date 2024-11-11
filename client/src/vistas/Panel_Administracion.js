@@ -1,16 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Panel_Administracion.css";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
-const PanelAdministracion = ({ onBack, handleGoToInventory }) => {
+const PanelAdministracion = ({ onBack }) => {
   const [isAdminPanelVisible, setIsAdminPanelVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Estado para manejar el mensaje de acceso denegado
+  const [accessDeniedMessage, setAccessDeniedMessage] = useState("");
+
+  useEffect(() => {
+    // Recuperamos el rol del usuario desde localStorage
+    const currentUserRole = localStorage.getItem("currentUser");
+    setRole(currentUserRole);
+  }, []);
+
   const handleAdminClick = () => {
-    setIsAdminPanelVisible(true); // Muestra el panel de administración cuando se hace clic
+    if (role === "admin") {
+      setIsAdminPanelVisible(true); // Muestra el panel de administración cuando se hace clic
+    } else {
+      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
+    }
+  };
+
+  const handleGoToCocina = () => {
+    if (role === "admin" || role === "cocinero") {
+      // Lógica para redirigir a la sección de Cocina
+    } else {
+      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
+    }
+  };
+
+  const handleGoToOrdenes = () => {
+    if (role === "admin" || role === "mesero") {
+      // Lógica para redirigir a la sección de Ordenes
+    } else {
+      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
+    }
+  };
+
+  const handleGoToInventory = () => {
+    if (role === "admin" || role === "mesero" || role === "cocinero") {
+      // Lógica para redirigir a la sección de Inventario
+    } else {
+      setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
+    }
   };
 
   const handleCreateUser = (event) => {
@@ -36,14 +73,34 @@ const PanelAdministracion = ({ onBack, handleGoToInventory }) => {
       <div className="sidebar-menu">
         <h2 className="inventory-title">Manejo de Inventario</h2>
         <div className="button-container">
-          <button className="inventory-button" onClick={handleGoToInventory}>
+          <button
+            className="inventory-button"
+            onClick={handleGoToInventory}
+            disabled={role !== "admin" && role !== "mesero" && role !== "cocinero"}
+          >
             Inventario
           </button>
-          <button className="inventory-button">Cocina</button>
-          <button className="inventory-button" onClick={handleAdminClick}>
+          <button
+            className="inventory-button"
+            onClick={handleGoToCocina}
+            disabled={role !== "admin" && role !== "mesero"}
+          >
+            Cocina
+          </button>
+          <button
+            className="inventory-button"
+            onClick={handleAdminClick}
+            disabled={role !== "admin"}
+          >
             Administración
           </button>
-          <button className="inventory-button">Ordenes</button>
+          <button
+            className="inventory-button"
+            onClick={handleGoToOrdenes}
+            disabled={role !== "admin" && role !== "mesero"}
+          >
+            Ordenes
+          </button>
         </div>
         <button className="back-button" onClick={onBack}>
           Regresar al Menú Principal
@@ -104,6 +161,13 @@ const PanelAdministracion = ({ onBack, handleGoToInventory }) => {
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <button type="submit" className="create-user-button">Crear Usuario</button>
             </form>
+          </div>
+        )}
+
+        {/* Mostrar mensaje de acceso denegado si es necesario */}
+        {accessDeniedMessage && (
+          <div className="access-denied-message">
+            <p>{accessDeniedMessage}</p>
           </div>
         )}
       </div>

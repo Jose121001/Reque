@@ -80,7 +80,7 @@
 }
 
 .back-button {
-  background-color: #d9534f;
+  background-color: #7F4F24;
   color: white;
   padding: 20px 40px;
   border: none;
@@ -93,7 +93,7 @@
 }
 
 .back-button:hover {
-  background-color: #c9302c;
+  background-color: #582F0E;
 }
 
 /* Estilo para el contenedor principal */
