@@ -16,9 +16,6 @@ app.use(express.json());  // Necesario para procesar el cuerpo de la solicitud c
 
 
 app.use(express.json());
-
-
-
 app.use(express.json());
 
 app.post('/guardar-producto', (req, res) => {
@@ -159,3 +156,4 @@ app.post("/eliminar-producto", (req, res) => {
 app.listen(3001, () => {
   console.log("Corriendo en el puerto 3001");
 });
+
