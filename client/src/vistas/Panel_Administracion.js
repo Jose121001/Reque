@@ -245,9 +245,8 @@ const PanelAdministracion = ({ onBack }) => {
             <p>{accessDeniedMessage}</p>
           </div>
         )}
-      </div>
-      <div className="main-content">
-      {activeSection === "inventario" && (
+
+        {activeSection === "inventario" && (
         <div className="inventory-container">
           <h2>Inventario de Artículos de Comida</h2>
           <div className="item-list">
