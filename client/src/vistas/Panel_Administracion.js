@@ -4,6 +4,7 @@ import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
 const PanelAdministracion = ({ onBack }) => {
   const [isAdminPanelVisible, setIsAdminPanelVisible] = useState(false);
+  const [handldeGoToInventory, sethandldeGoToInventory] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
@@ -11,6 +12,13 @@ const PanelAdministracion = ({ onBack }) => {
 
   // Estado para manejar el mensaje de acceso denegado
   const [accessDeniedMessage, setAccessDeniedMessage] = useState("");
+
+  // Simulamos algunos artículos de comida
+  const items = [
+    { id: 1, name: "Pizza", cantidad: 100 },
+    { id: 2, name: "Hamburguesa", cantidad: 200 },
+    { id: 3, name: "Ensalada", cantidad: 300 },
+  ];
 
   useEffect(() => {
     // Recuperamos el rol del usuario desde localStorage
@@ -42,12 +50,16 @@ const PanelAdministracion = ({ onBack }) => {
     }
   };
 
-  const handleGoToInventory = () => {
+  const handleInventoryClick = () => {
     if (role === "admin" || role === "mesero" || role === "cocinero") {
-      // Lógica para redirigir a la sección de Inventario
+      sethandldeGoToInventory(true);
     } else {
       setAccessDeniedMessage("No tienes permiso para acceder a esta sección.");
     }
+  };
+
+  const BackToManageInventory = () => {
+    sethandldeGoToInventory(false);
   };
 
   const handleCreateUser = (event) => {
@@ -75,7 +87,7 @@ const PanelAdministracion = ({ onBack }) => {
         <div className="button-container">
           <button
             className="inventory-button"
-            onClick={handleGoToInventory}
+            onClick={handleInventoryClick}
             disabled={role !== "admin" && role !== "mesero" && role !== "cocinero"}
           >
             Inventario
@@ -163,6 +175,29 @@ const PanelAdministracion = ({ onBack }) => {
             </form>
           </div>
         )}
+
+        {handldeGoToInventory && (
+          <div className="inventory-container">
+          <h2>Inventario de Artículos de Comida</h2>
+          <div className="item-list">
+            {items.map((item) => (
+              <div className="item" key={item.id}>
+                <span>{item.name}</span>
+                <div className="item-buttons">
+                  <button className="inventory-button">Editar</button>
+                  <button className="inventory-button">Eliminar</button>
+                  <button className="inventory-button">Agregar</button>
+                </div>
+              </div>
+            ))}
+          </div>
+    
+          {/* Botón para regresar al panel de inventario */}
+          <button className="back-button" onClick={BackToManageInventory}>
+            Regresar al Panel de Inventario
+          </button>
+        </div>
+        )}  
 
         {/* Mostrar mensaje de acceso denegado si es necesario */}
         {accessDeniedMessage && (
